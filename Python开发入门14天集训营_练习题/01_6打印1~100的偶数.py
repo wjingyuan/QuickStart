@@ -1,9 +1,7 @@
 # 输出1~100的所有偶数
 
-x = 0
-while x < 100:
-    x = x + 1
+x = 1
+while x <= 100:
     if x % 2 == 0:
         print(x)
-    else:
-        continue
+    x = x + 1
