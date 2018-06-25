@@ -3,6 +3,7 @@
 可依次选择进入各子菜单
 可从任意一层往回退到上一层
 可从任意一层退出程序
+
 所需新知识点：列表、字典
 '''
 
@@ -49,3 +50,25 @@ menu = {
     },
     '山东':{},
 }
+
+current_layer = menu
+layers = []
+while True:
+    for i in current_layer:
+        print(i)
+    choice = input('请输入:').strip()  # strip的作用是用于删除输入中的换行和空格
+    if not choice:
+        continue  # 没有输入时跳过本次循环，要求用户重新输入
+    elif choice in current_layer:
+        layers.append(current_layer)  # 将当前层作为一个元素保存起来，可以用列表作为容器。
+        current_layer = current_layer[choice] # 让current_layer每次循环都增加一个[choice]，即：进入下一层
+    elif choice == 'b' or choice == 'B':
+        if len(layers) != 0:
+            current_layer = layers.pop()
+        else:
+            print('当前层为顶层！')
+    elif choice == 'q' or choice == 'Q':
+        print('退出菜单。')
+        break
+    else:
+        print('输入错误,请重新输入！')

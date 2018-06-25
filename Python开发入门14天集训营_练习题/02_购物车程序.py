@@ -11,11 +11,78 @@
 2、允许查询之前的消费记录
 '''
 
+# 使用termcolor库，可以高亮输出文本。使用方法为：cprint(text, color=None, on_color=None, attrs=None, **kwargs)。
+# termcolor支持%s、%d格式的输出方法。
+from termcolor import cprint
+
+def buy(products, salary):
+    shopping_card = []
+    total_money = 0
+    while True:
+        x = input('请输入想购买的商品编号：')
+        if x.upper() == 'Q':  # 退出时打印购物车商品
+            if len(shopping_card) == 0:
+                print('您的购物车是空的。')
+                break
+            else:
+                print('---------已购买的商品---------')
+                for y in range(len(shopping_card)):
+                    print('%s. %s    %s' % (y, shopping_card[y]['name'], shopping_card[y]['price']))
+                break
+        elif int(x) < 0 or int(x) > len(products):
+            print('输入的商品编号超出商品列表编号范围，请重新输入。')
+            continue
+        elif 0 <= int(x) <= len(products):
+            # 添加商品到购物车
+            shopping_card.append(products[int(x)])
+            print(products[int(x)], '已成功加入购物车')
+            total_money += products[int(x)]['price']
+            cprint('共需支付： %d' % total_money, 'red', 'on_white', ['bold'])
+            if int(salary) < total_money:
+                balance = int(salary ) - total_money
+                cprint('您的余额不足。当前可用余额为： %d' % balance, 'red', 'on_white', ['bold'])
+                shopping_card.pop()
+                continue
+        else:
+            print('内容输入错误，请重新输入需要购买的商品编号。')
+            continue
+
 goods = [
 {"name": "电脑", "price": 1999},
 {"name": "鼠标", "price": 10},
 {"name": "游艇", "price": 20},
 {"name": "美女", "price": 998},
-......
 ]
 
+# user_name = 'shanshan'
+# psw = '123'
+name_psw = {
+    'shanshan':'123',
+    'Judy':'321',
+    'Miller':'234',
+    'Mike':'432'
+}
+
+while True:
+    test_user = input('请输入用户名：')
+    password = input('请输入密码：')
+    if name_psw.get(test_user) == password:
+
+        while True:
+            wage = input('请输入您的月工资收入：')
+            if wage.isdigit(): # 判断输入是否为数字
+                break
+            else:
+                print('工资格式错误，请输入数字。')
+                continue
+
+        print('-----------商品列表-----------')
+
+        for i in range(len(goods)):
+            print('%s. %s  %s' % (i, goods[i]['name'], goods[i]['price']))
+        buy(goods, wage)
+        break
+
+    else:
+        print('用户名或密码错误，请重新输入。')
+        continue
