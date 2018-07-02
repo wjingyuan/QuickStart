@@ -54,9 +54,7 @@ goods = [
 {"name": "美女", "price": 998},
 ]
 
-# user_name = 'shanshan'
-# psw = '123'
-name_psw = {
+user_info = {
     'shanshan':'123',
     'Judy':'321',
     'Miller':'234',
@@ -64,9 +62,9 @@ name_psw = {
 }
 
 while True:
-    test_user = input('请输入用户名：')
+    user_name = input('请输入用户名：')
     password = input('请输入密码：')
-    if name_psw.get(test_user) == password:
+    if user_info.get(user_name) == password:
 
         while True:
             wage = input('请输入您的月工资收入：')
